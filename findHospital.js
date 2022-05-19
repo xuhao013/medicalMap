@@ -42,7 +42,7 @@ var circle;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: data1[1].Y, lng: data1[1].X },
+        center: { lat: data[0].Y, lng: data[0].X },
         zoom: 6,
     });
     infoWindow = new google.maps.InfoWindow();
@@ -106,11 +106,15 @@ function initMap() {
             var center = locations[0]
         }
         else {
-            alert("No hospital found !")
-            var center = { lat: data1[1].Y, lng: data1[1].X }
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No Hospitols Found!'
+              })
+            var center = { lat: data1[0].Y, lng: data1[0].X }
         }
         map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 7,
+            zoom: 6,
             center: center,
         });
         infoWindow = new google.maps.InfoWindow({
