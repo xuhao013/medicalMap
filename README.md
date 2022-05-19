@@ -8,4 +8,4 @@ How to use？
 Note！
 
 1. You need to adjust the zoom ratio to 100% after opening the program to have a better user experience.
-2. The first function (find your current address) will ask you to grant permission for geolocation. If you want to use this function, click on Agree.
+2. The first function (find your current place) will ask you to grant permission for geolocation. If you want to use this function, click on Agree.
