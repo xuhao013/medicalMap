@@ -21,6 +21,12 @@
     <div id="wrap">
         <div id="filter">
             <div class="line">
+                <div class="range">
+                    <label id="distanceLable"> Range</label>
+                    <input type="range" id="distanceRange" min="0" max="500" step="1" value="100"
+                        oninput="distrangeChange()" onchange="distrangeChange() ">
+                    <span id="distanceSpan">100</span> km
+                </div>
                 <button id="findCurrentPlace" class="buttons">Find Current Place</button>
             </div>
             <div class="line">
@@ -53,12 +59,6 @@
                         </span>
                     </div>
                     <div id="rangeDiv">
-                        <div class="range">
-                            <label id="distanceLable"> Distance</label>
-                            <input type="range" id="distanceRange" min="0" max="500" step="1" value="100"
-                                oninput="distrangeChange()" onchange="distrangeChange() ">
-                            <span id="distanceSpan">100</span> km
-                        </div>
                         <div class="range" id="expenseDiv">
                             <div style="display: flex;">
                                 <label id="expenseLable"> Expense</label>

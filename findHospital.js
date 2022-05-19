@@ -38,6 +38,7 @@ $(document).ready(function () {
 });
 
 let map, infoWindow;
+var circle;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
@@ -49,6 +50,11 @@ function initMap() {
     //find current location
     const locationButton = document.getElementById('findCurrentPlace');
     locationButton.addEventListener("click", () => {
+        var distance = document.getElementById('distanceRange').value;
+        if(circle !=null){
+            circle.setMap(null);
+            circle = null
+        }
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -57,11 +63,20 @@ function initMap() {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
                     };
-
                     infoWindow.setPosition(pos);
                     infoWindow.setContent("Location found.");
                     infoWindow.open(map);
                     map.setCenter(pos);
+                    circle = new google.maps.Circle({
+                        strokeColor: "#0000FF",
+                        strokeOpacity: 0.4,
+                        strokeWeight: 2,
+                        fillColor: "#000000",
+                        fillOpacity: 0.2,
+                        map,
+                        center: pos,
+                        radius: distance*1000,
+                      });
                 },
                 () => {
                     handleLocationError(true, infoWindow, map.getCenter());
@@ -77,26 +92,26 @@ function initMap() {
     const findAllHos = document.getElementById("findAllHos")
     findAllHos.addEventListener("click", () => {
         //get state
-        var currentPosition = { lat: 34.0522, lng: -118.2437 };
         var state = document.getElementById('stateSelection').value;
         var drg = document.getElementById('drgSelection').value;
-        var distance = document.getElementById('distanceRange').value;
         var money = document.getElementById('expenseRange').value;
         var moneyType = document.getElementById('expense_tpye').value;
-        var datatemp = findAllHosData(state, drg, distance, money, moneyType, currentPosition);
+        var datatemp = findAllHosData(state, drg, money, moneyType);
         var locations = [];
         for (var i = 0; i < datatemp.length; i++) {
             var pos = { lat: datatemp[i].Y, lng: datatemp[i].X };
             locations.push(pos)
         }
-
+        if(locations.length>0){
+            var center = locations[0]
+        }
+        else{
+            var center = {lat: data1[1].Y, lng: data1[1].X}
+        }
         map = new google.maps.Map(document.getElementById("map"), {
             zoom: 7,
-            center: currentPosition,
+            center: center,
         });
-        infoWindow.setPosition(currentPosition);
-        infoWindow.setContent("Location found.");
-        infoWindow.open(map);
         infoWindow = new google.maps.InfoWindow({
             content: "",
             disableAutoPan: true,
@@ -125,16 +140,6 @@ function initMap() {
                     shouldFocus: false,
                 });
             });
-            const cityCircle = new google.maps.Circle({
-                strokeColor: "#0000FF",
-                strokeOpacity: 0.4,
-                strokeWeight: 2,
-                fillColor: "#000000",
-                fillOpacity: 0.005,
-                map,
-                center: currentPosition,
-                radius: distance*1000,
-              });
             return marker;
         });
 
@@ -184,12 +189,9 @@ function findMarkByPos(posTem, datatemp) {
     }
 }
 
-function findAllHosData(state, drg, distance, money, moneyType, currentPosition) {
+function findAllHosData(state, drg, money, moneyType) {
     var data_findAll = []
-    var tempData;
     for (var i = 0; i < data.length; i++) {
-        var lat2 = data[i].Y
-        var lng2 = data[i].X
         var dollor;
         if (moneyType == 'AverageCoveredCharges') {
             dollor = data[i].AverageCoveredCharges
@@ -203,31 +205,18 @@ function findAllHosData(state, drg, distance, money, moneyType, currentPosition)
             dollor = data[i].AverageMedicarePayments
             dollor = parseFloat(dollor.substr(1))
         }
-        var dis = getDistance(currentPosition.lat, currentPosition.lng, lat2, lng2)
         if (state != 'all') {
-            if (data[i].state == state && data[i].DRG == drg && dis <= distance && dollor < money) {
+            if (data[i].state == state && data[i].DRG == drg && dollor < money) {
                 data_findAll.push(data[i])
             }
         }else{
-            if (data[i].DRG == drg && dis <= distance && dollor < money) {
+            if (data[i].DRG == drg  && dollor < money) {
                 data_findAll.push(data[i])
             }
         }
     }
     return data_findAll
 
-}
-
-function getDistance(lat1, lng1, lat2, lng2) {
-    var radLat1 = lat1 * Math.PI / 180.0;
-    var radLat2 = lat2 * Math.PI / 180.0;
-    var a = radLat1 - radLat2;
-    var b = lng1 * Math.PI / 180.0 - lng2 * Math.PI / 180.0;
-    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
-        Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
-    s = s * 6378.137;// EARTH_RADIUS;
-    s = Math.round(s * 10000) / 10000;
-    return s;
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
