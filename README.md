@@ -3,7 +3,7 @@
 How to use？
 
 1. Open the URL(https://xuhao013.github.io/medicalMap/) directly to use the program
-2. Firstly, install the appropriate version of Visual Studio Code. secondly, open this folder with VS code. Then click on 'Extensions' in the left-hand toolbar. Search for 'Live server' in the search bar and install it. Finally, go back to the folder, right click on 'index.html' and select 'Open with Live Server'.
+2. Firstly, install the appropriate version of Visual Studio Code. Secondly, open this folder with VS code. Then click on 'Extensions' in the left-hand toolbar. Search for 'Live server' in the search bar and install it. Finally, go back to the folder, right click on 'index.html' and select 'Open with Live Server'.
 
 Note！
 
