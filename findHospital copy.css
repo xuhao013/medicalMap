@@ -1,6 +1,6 @@
 body {
   background-color: #F6F6F6;
-  
+
 
 }
 
@@ -20,7 +20,8 @@ h3 {
   border-left: 0px;
   border-right: 0px;
 }
-h4{
+
+h4 {
   margin-top: 10px;
   margin-bottom: 0px;
   text-align: center;
@@ -36,7 +37,7 @@ h4{
 
 #filter {
   height: 800px;
-  width: 20%;
+  width: 30%;
   margin-right: 30px;
 }
 
@@ -270,5 +271,40 @@ h4{
 
 #mapDiv {
   height: 800px;
-  width: 75%;
+  width: 65%;
+}
+
+/* help tio */
+.help-tip {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 14px;
+  text-align: center;
+  background-color: #666;
+  border-radius: 50%;
+  cursor: default;
+  margin-left: 20px;
+}
+
+.help-tip:before {
+  content: "?";
+  font-weight: bold;
+  color: #fff;
+}
+
+.help-tip p {
+  display: none;
+  text-align: left;
+  background-color: #333;
+  color: #fff;
+  width: 320px;
+  right: 0;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.help-tip:hover p {
+  display: block;
 }

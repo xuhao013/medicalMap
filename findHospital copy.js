@@ -77,26 +77,31 @@ function initMap() {
     const findAllHos = document.getElementById("findAllHos")
     findAllHos.addEventListener("click", () => {
         //get state
+        var currentPosition = { lat: 34.0522, lng: -118.2437 };
         var state = document.getElementById('stateSelection').value;
         var drg = document.getElementById('drgSelection').value;
         var distance = document.getElementById('distanceRange').value;
         var money = document.getElementById('expenseRange').value;
-        var datatemp = findAllHosData(state, drg, distance, money);
-        var locations = []
-        for(var i =0;i<datatemp.length;i++){
+        var moneyType = document.getElementById('expense_tpye').value;
+        var datatemp = findAllHosData(state, drg, distance, money, moneyType, currentPosition);
+        var locations = [];
+        for (var i = 0; i < datatemp.length; i++) {
             var pos = { lat: datatemp[i].Y, lng: datatemp[i].X };
             locations.push(pos)
         }
 
         map = new google.maps.Map(document.getElementById("map"), {
             zoom: 7,
-            center: { lat: locations[0].lat, lng: locations[0].lng },
-          });
+            center: currentPosition,
+        });
+        infoWindow.setPosition(currentPosition);
+        infoWindow.setContent("Location found.");
+        infoWindow.open(map);
         infoWindow = new google.maps.InfoWindow({
             content: "",
             disableAutoPan: true,
         });
-        
+
         // Create an array of alphabetical characters used to label the markers.
         const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         // Add some markers to the map.
@@ -110,7 +115,7 @@ function initMap() {
             // markers can only be keyboard focusable when they have click listeners
             // open info window when marker is clicked
             marker.addListener("click", () => {
-                var contentString = findMarkByPos(position,datatemp)
+                var contentString = findMarkByPos(position, datatemp)
                 infowindow = new google.maps.InfoWindow({
                     content: contentString,
                 });
@@ -120,6 +125,16 @@ function initMap() {
                     shouldFocus: false,
                 });
             });
+            const cityCircle = new google.maps.Circle({
+                strokeColor: "#0000FF",
+                strokeOpacity: 0.4,
+                strokeWeight: 2,
+                fillColor: "#000000",
+                fillOpacity: 0.005,
+                map,
+                center: currentPosition,
+                radius: distance*1000,
+              });
             return marker;
         });
 
@@ -159,25 +174,60 @@ function initMap() {
 }
 window.initMap = initMap;
 
-function findMarkByPos(posTem,datatemp){
-    for(var i =0;i< datatemp.length;i++){
+function findMarkByPos(posTem, datatemp) {
+    for (var i = 0; i < datatemp.length; i++) {
         var pos = { lat: datatemp[i].Y, lng: datatemp[i].X };
-        if(posTem.lat == pos.lat && posTem.lng == pos.lng){
+        if (posTem.lat == pos.lat && posTem.lng == pos.lng) {
             var inf = getAllHospitalInf(datatemp[i])
             return inf
         }
     }
 }
 
-function findAllHosData(state, drg, distance, money) {
+function findAllHosData(state, drg, distance, money, moneyType, currentPosition) {
     var data_findAll = []
+    var tempData;
     for (var i = 0; i < data.length; i++) {
-        if (data[i].state == state && data[i].DRG == drg) {
-            data_findAll.push(data[i])
+        var lat2 = data[i].Y
+        var lng2 = data[i].X
+        var dollor;
+        if (moneyType == 'AverageCoveredCharges') {
+            dollor = data[i].AverageCoveredCharges
+            dollor = parseFloat(dollor.substr(1))
+        }
+        if (moneyType == 'AverageTotalPayments') {
+            dollor = data[i].AverageTotalPayments
+            dollor = parseFloat(dollor.substr(1))
+        }
+        if (moneyType == 'AverageMedicarePayments') {
+            dollor = data[i].AverageMedicarePayments
+            dollor = parseFloat(dollor.substr(1))
+        }
+        var dis = getDistance(currentPosition.lat, currentPosition.lng, lat2, lng2)
+        if (state != 'all') {
+            if (data[i].state == state && data[i].DRG == drg && dis <= distance && dollor < money) {
+                data_findAll.push(data[i])
+            }
+        }else{
+            if (data[i].DRG == drg && dis <= distance && dollor < money) {
+                data_findAll.push(data[i])
+            }
         }
     }
     return data_findAll
 
+}
+
+function getDistance(lat1, lng1, lat2, lng2) {
+    var radLat1 = lat1 * Math.PI / 180.0;
+    var radLat2 = lat2 * Math.PI / 180.0;
+    var a = radLat1 - radLat2;
+    var b = lng1 * Math.PI / 180.0 - lng2 * Math.PI / 180.0;
+    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
+        Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+    s = s * 6378.137;// EARTH_RADIUS;
+    s = Math.round(s * 10000) / 10000;
+    return s;
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
