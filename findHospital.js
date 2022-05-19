@@ -51,7 +51,7 @@ function initMap() {
     const locationButton = document.getElementById('findCurrentPlace');
     locationButton.addEventListener("click", () => {
         var distance = document.getElementById('distanceRange').value;
-        if(circle !=null){
+        if (circle != null) {
             circle.setMap(null);
             circle = null
         }
@@ -75,8 +75,8 @@ function initMap() {
                         fillOpacity: 0.2,
                         map,
                         center: pos,
-                        radius: distance*1000,
-                      });
+                        radius: distance * 1000,
+                    });
                 },
                 () => {
                     handleLocationError(true, infoWindow, map.getCenter());
@@ -102,12 +102,12 @@ function initMap() {
             var pos = { lat: datatemp[i].Y, lng: datatemp[i].X };
             locations.push(pos)
         }
-        if(locations.length>0){
+        if (locations.length > 0) {
             var center = locations[0]
         }
-        else{
+        else {
             alert("No hospital found !")
-            var center = {lat: data1[1].Y, lng: data1[1].X}
+            var center = { lat: data1[1].Y, lng: data1[1].X }
         }
         map = new google.maps.Map(document.getElementById("map"), {
             zoom: 7,
@@ -210,8 +210,8 @@ function findAllHosData(state, drg, money, moneyType) {
             if (data[i].state == state && data[i].DRG == drg && dollor < money) {
                 data_findAll.push(data[i])
             }
-        }else{
-            if (data[i].DRG == drg  && dollor < money) {
+        } else {
+            if (data[i].DRG == drg && dollor < money) {
                 data_findAll.push(data[i])
             }
         }
@@ -288,6 +288,14 @@ function queryList() {
     }
     $("select#stateSelection").append(add_state_options);
 
+}
+
+function showHelpTips() {
+    Swal.fire({
+        title: 'DRG Tips',
+        text: 'You have a couple of options when it comes to identifying the code. You could look it up in the ICD-10-CM/PCS code book, you could contact the coding department and ask for help, or look it up using a search engine or app on your smart device.',
+        
+      })
 }
 
 

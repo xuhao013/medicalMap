@@ -10,6 +10,7 @@
     <script src="findHospital.js"></script>
     <script src="result.json"></script>
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -52,10 +53,7 @@
                                     INTRACRANIAL HEMORRHAGE OR CEREBRAL INFARCTION W MCC</option>
                             </select>
                         </form>
-                        <span class="help-tip">
-                            <p>You have a couple of options when it comes to identifying the code. You could look it up
-                                in the ICD-10-CM/PCS code book, you could contact the coding department and ask for
-                                help, or look it up using a search engine or app on your smart device.</p>
+                        <span class="help-tip" id="helpIcon" onclick="showHelpTips();">
                         </span>
                     </div>
                     <div id="rangeDiv" class="inputs">
@@ -75,7 +73,7 @@
                                     <label id="expenseLable" style="opacity: 0;"> Expense</label>
                                     <input type="range" id="expenseRange" min="0" max="100000" step="500" value="50000"
                                         oninput="exprangeChange()" onchange="exprangeChange()">
-                                    <span id="expenseSpan" class="spans">50000</span><span class="spans">$</span> 
+                                    <span id="expenseSpan" class="spans">50000</span><span class="spans">$</span>
                                 </div>
 
                             </div>
