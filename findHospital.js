@@ -106,6 +106,7 @@ function initMap() {
             var center = locations[0]
         }
         else{
+            alert("No hospital found !")
             var center = {lat: data1[1].Y, lng: data1[1].X}
         }
         map = new google.maps.Map(document.getElementById("map"), {
