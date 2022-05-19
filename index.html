@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>CW2</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" href="findHospital.css">
+    <script src="findHospital.js"></script>
+    <script  src="result.json"></script>
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+</head>
+
+<body>
+    <div id="title">
+        <h3>MedicalMap</h3>
+    </div>
+
+
+    <div id="wrap">
+        <div id="filter">
+            <div class="line">
+                <button id="findCurrentPlace" class="buttons">Find Current Place</button>
+            </div>
+            <div class="line">
+                <div>
+                    <h4>Find hospitals near you</h4>
+                    <div id="formSelection">
+                        <label id="selectionLable" class="">State</label>
+                        <form action="#">
+                            <select id="stateSelection" class="basic-slide">
+                            </select>
+                        </form>
+                    </div>
+                    <div id="formSelection1">
+                        <label id="selectionLable1" class="">DRG</label>
+                        <form action="#">
+                            <select name="DRG" id="drgSelection" class="basic-slide">
+                                <option value="039 - EXTRACRANIAL PROCEDURES W/O CC/MCC">039 - EXTRACRANIAL PROCEDURES W/O CC/MCC</option>
+                                <option value="057 - DEGENERATIVE NERVOUS SYSTEM DISORDERS W/O MCC">057 - DEGENERATIVE NERVOUS SYSTEM DISORDERS W/O MCC</option>
+                                <option value="064 - INTRACRANIAL HEMORRHAGE OR CEREBRAL INFARCTION W MCC">064 - INTRACRANIAL HEMORRHAGE OR CEREBRAL INFARCTION W MCC</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div id="rangeDiv">
+                        <div class="range">
+                            <label id="distanceLable"> Distance</label>
+                            <input type="range" id="distanceRange" min="0" max="200" step="1" value="50" oninput="distrangeChange()" onchange="distrangeChange() ">
+                            <span id="distanceSpan" >50</span> km
+                        </div>
+                        <div class="range" id="expenseDiv">
+                            <label id="expenseLable"> Expense</label>
+                            <input type="range" id="expenseRange" min="0" max="5000" step="100" value="2500" oninput="exprangeChange()" onchange="exprangeChange()">
+                            <span id="expenseSpan" >2500</span> $
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    <button id="findAllHos" class="buttons">Find Hospitals</button>
+                </div>
+            </div>
+
+            <div>
+                <h4>Search by hospital name</h4>
+                <div class="row">
+                    <span>
+                        <input id="findOneHosInput" list="batch_list" class="basic-slide" placeholder="Type a Hospital Name to Find"><label for="findOneHosInput">Hospital Name</label>
+                            <datalist id="batch_list">
+                            </datalist>               
+                    </span>
+                </div>
+                <div>
+                    <button id="findOneHos" class="buttons">Find The Hospital</button>
+                </div>
+            </div>
+
+        </div>
+        <div id="mapDiv">
+            <div id="map"></div>
+        </div>
+
+    </div>
+
+    <!-- 
+     The `defer` attribute causes the callback to execute after the full HTML
+     document has been parsed. For non-blocking uses, avoiding race conditions,
+     and consistent behavior across browsers, consider loading using Promises
+     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+    -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO9mnbz7WoLvi4AeKVl9C4g2U75Ei0SUU&callback=initMap&v=weekly"
+        defer></script>
+</body>
+
+</html>
