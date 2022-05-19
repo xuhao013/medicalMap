@@ -1,0 +1,274 @@
+body {
+  background-color: #F6F6F6;
+  
+
+}
+
+/* title */
+#title {
+  height: 100px;
+  margin-right: 75%;
+}
+
+h3 {
+  margin-left: 20px;
+  font-family: serif;
+  font-size: 40px;
+  color: #1075b5;
+  border-bottom: 1px solid #dbdbdb;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+}
+h4{
+  margin-top: 10px;
+  margin-bottom: 0px;
+  text-align: center;
+  font-family: serif;
+  font-size: 20px;
+}
+
+/* body */
+#wrap {
+  display: flex;
+  justify-content: center;
+}
+
+#filter {
+  height: 800px;
+  width: 20%;
+  margin-right: 30px;
+}
+
+.line {
+  border-bottom: 1px solid #dbdbdb;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-bottom: 10px;
+
+}
+
+
+/* buttons*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+
+/* General Buttons */
+.buttons {
+  width: 330px;
+  height: 40px;
+  background: linear-gradient(to bottom, #4eb5e5 0%, #389ed5 100%);
+  /* W3C */
+  border: none;
+  border-radius: 5px;
+  position: relative;
+  border-bottom: 4px solid #2b8bc6;
+  color: #fbfbfb;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
+  font-size: 22px;
+  text-align: center;
+  text-indent: 5px;
+  box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, .2);
+  cursor: pointer;
+
+  /* Just for presentation */
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.buttons:active {
+  box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, .2);
+  top: 1px;
+}
+
+.buttons:after {
+  content: "";
+  width: 0;
+  height: 0;
+  display: block;
+  border-top: 20px solid #187dbc;
+  border-bottom: 20px solid #187dbc;
+  border-left: 16px solid transparent;
+  border-right: 20px solid #187dbc;
+  position: absolute;
+  opacity: 0.6;
+  right: 0;
+  top: 0;
+  border-radius: 0 5px 5px 0;
+}
+
+
+.inputs {
+  text-align: center;
+}
+
+/* row */
+.row {
+
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.row:before {
+  position: absolute;
+  content: "";
+  display: block;
+  top: 0;
+  left: -5000px;
+  height: 100%;
+  width: 15000px;
+  z-index: -1;
+  background: inherit;
+}
+
+.row span {
+  position: relative;
+  display: inline-block;
+  margin: 30px 10px;
+}
+
+.basic-slide {
+  display: inline-block;
+  width: 215px;
+  padding: 10px 0 14px 90px;
+  font-family: "Open Sans", sans;
+  font-weight: 400;
+  color: black;
+  background: #efefef;
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+  text-indent: 70px;
+  transition: all 0.3s ease-in-out;
+}
+
+.basic-slide::-webkit-input-placeholder {
+  color: #efefef;
+  text-indent: 0;
+  font-weight: 300;
+}
+
+.basic-slide+label {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 15px;
+  text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
+  background: #4eb5e5;
+  transition: all 0.3s ease-in-out;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.basic-slide:focus,
+
+.basic-slide:focus::-webkit-input-placeholder,
+.basic-slide:active::-webkit-input-placeholder {
+  color: #aaa;
+}
+
+.basic-slide:focus+label,
+.basic-slide:active+label {
+  transform: translateX(-100%);
+}
+
+/* select */
+#stateSelection {
+  padding: 12px 0px 12px 10px;
+}
+
+#drgSelection {
+  padding: 12px 60px 12px 0px;
+}
+
+#formSelection {
+  margin-top: 20px;
+  justify-content: center;
+  display: flex;
+}
+
+#formSelection1 {
+  margin-top: 20px;
+  justify-content: center;
+  display: flex;
+}
+
+#selectionLable {
+  padding: 10px 25px;
+  text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
+  background: #4eb5e5;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+#selectionLable1 {
+  padding: 10px 27.5px;
+  text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
+  background: #4eb5e5;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+/* range */
+.range {
+  margin: 20px 20px 20px 38px;
+  display: flex;
+}
+
+#rangeDiv {
+  margin-top: 0px;
+}
+
+#expenseDiv {
+  margin-top: 0px;
+}
+
+#expenseLable {
+  padding: 10px 13px;
+  text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
+  background: #4eb5e5;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+#distanceLable {
+  padding: 10px 12px;
+  text-shadow: 0 1px 0 rgba(19, 74, 70, 0.4);
+  background: #4eb5e5;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+#distanceSpan {
+  margin-left: 20px;
+}
+
+#expenseSpan {
+  margin-left: 20px;
+}
+
+#distanceRange {
+  margin-left: 20px;
+}
+
+#expenseRange {
+  margin-left: 20px;
+}
+
+/* Set the size of the div element that contains the map */
+#map {
+  height: 800px;
+  width: 100%;
+  border: 1px solid black;
+}
+
+#mapDiv {
+  height: 800px;
+  width: 75%;
+}
