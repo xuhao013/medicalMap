@@ -4,8 +4,8 @@ $.getJSON(" result.json", function (x) {
     data1 = x
     for (var i = 0; i < data1.length; i++) {
         for (var j = i + 1; j < data1.length;) {
-            if (data1[i].NAME == data1[j].NAME) {//判断哪个字段信息重复
-                data1.splice(j, 1);//去除重复的对象；
+            if (data1[i].NAME == data1[j].NAME) {
+                data1.splice(j, 1);
             } else {
                 j++;
             }
@@ -18,8 +18,8 @@ $.getJSON(" result.json", function (x) {
     state = x
     for (var i = 0; i < state.length; i++) {
         for (var j = i + 1; j < state.length;) {
-            if (state[i].state == state[j].state) {//判断哪个字段信息重复
-                state.splice(j, 1);//去除重复的对象；
+            if (state[i].state == state[j].state) {
+                state.splice(j, 1);
             } else {
                 j++;
             }
